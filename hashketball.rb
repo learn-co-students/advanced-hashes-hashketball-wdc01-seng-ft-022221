@@ -127,3 +127,113 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(playerName)
+    info = game_hash
+    point = 0
+     list_of_players = info.map do |key, value|
+        value[:players].map do |element|
+            if (element[:player_name] == playerName)
+                point = element[:points]
+            end
+        end
+     end
+     point
+  end
+  def shoe_size(playerName)
+    info = game_hash
+    point = 0
+     list_of_players = info.map do |key, value|
+        value[:players].map do |element|
+            if (element[:player_name] == playerName)
+                point = element[:shoe]
+            end
+        end
+     end
+     point
+  end
+  
+  def team_colors(teamName)
+    info = game_hash
+    colors_of_team = []
+     list_of_players = info.map do |key, value|
+        if (value[:team_name] == teamName)
+            colors_of_team = value[:colors]
+        end
+     end
+    colors_of_team.each do |element|
+        element
+    end
+  end
+  
+  def team_names
+    info = game_hash
+    info.map do |key, value|
+        value[:team_name]
+    end
+end
+
+def player_numbers(teamName)
+    info = game_hash
+    number = []
+     list_of_players = info.map do |key, value|
+        if (value[:team_name] == teamName)
+            # number.push(value[:player][:number])
+            value[:players].map do |element|
+                number.push(element[:number])
+            end
+
+        end
+     end
+     number
+  end
+  
+  def player_stats(playerName)
+    info = game_hash
+    playerInfo = {}
+    info.map do |key, value|
+        value[:players].map do |element|
+            # element[:player_name]
+            if (element[:player_name] == playerName)
+                playerInfo = element
+            end
+        end
+    end
+    playerInfo
+  end
+  
+  def big_shoe_rebounds(teamName)
+    info = game_hash
+    number = []
+     list_of_players = info.map do |key, value|
+        if (value[:team_name] == teamName)
+            # number.push(value[:player][:number])
+            value[:players].map do |element|
+                number.push(element[:rebounds])
+            end
+        end
+     end
+     max = number[0]
+     number.each do |element|
+        if (element > max)
+            max = element
+        end
+    end
+    max
+end
+
+def big_shoe_rebounds
+    info = game_hash
+    biggestShoeSize = []
+    maxShoeSize = 0
+    maxReboundNumber = 0
+     list_of_players = info.map do |key, value|
+        value[:players].map do |element|
+            # element[:shoe]
+            if (element[:shoe] > maxShoeSize)
+                maxShoeSize = element[:shoe]
+                maxReboundNumber = element[:rebounds]
+            end
+        end
+     end
+    maxReboundNumber
+end
