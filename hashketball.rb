@@ -1,3 +1,5 @@
+require 'pry'
+
 # Write your code below game_hash
 def game_hash
   {
@@ -127,3 +129,122 @@ def game_hash
 end
 
 # Write code here
+
+#helper functions or something
+
+def player_team(name)
+  team = nil
+  game_hash[:home][:players].each do |element|
+    if element.values.include?(name)
+      team = :home
+    end 
+  end
+  game_hash[:away][:players].each do |element|
+    if element.values.include?(name)
+      team = :away
+    end 
+  end 
+  team
+end 
+
+
+def player_index(name)
+  index = nil
+  game_hash[:home][:players].each_with_index do |element, n|
+    if element.values.include?(name)
+      index = n
+    end 
+  end
+  game_hash[:away][:players].each_with_index do |element, n|
+    if element.values.include?(name)
+      index = n
+    end 
+  end 
+  index
+end 
+
+#methods to pass
+
+def num_points_scored(name)
+  team = player_team(name)
+  index = player_index(name)
+  game_hash[team][:players][index][:points]
+end
+
+def shoe_size(name)
+  team = player_team(name)
+  index = player_index(name)
+  game_hash[team][:players][index][:shoe]
+end 
+
+def team_colors (team)
+  if game_hash[:home][:team_name] == team 
+    game_hash[:home][:colors]
+  elsif game_hash[:away][:team_name] == team 
+    game_hash[:away][:colors]
+  else
+    puts "Team not found"
+  end 
+end 
+
+
+def team_names
+  teams = []
+  game_hash.each_value do |value|
+    teams << value[:team_name]
+  end 
+  teams
+end 
+
+def player_numbers (team)
+  if game_hash[:home][:team_name] == team 
+    game_hash[:home][:players].map {|n| n[:number]}
+  elsif game_hash[:away][:team_name] == team 
+    game_hash[:away][:players].map {|n| n[:number]}
+  else
+    puts "Team not found"
+  end 
+end 
+
+def player_stats (name)
+  team = player_team(name)
+  index = player_index(name)
+  game_hash[team][:players][index]
+end 
+
+def big_shoe_rebounds
+  rebounds = nil
+  shoe_sizes = []
+  game_hash[:home][:players].map {|n| shoe_sizes << n[:shoe]}
+  game_hash[:away][:players].map {|n| shoe_sizes << n[:shoe]}
+  
+  game_hash[:home][:players].each do |element|
+    if element[:shoe] == shoe_sizes.max
+      rebounds = element[:rebounds]
+    end 
+  end
+  game_hash[:away][:players].each do |element|
+    if element[:shoe] == shoe_sizes.max
+      rebounds = element[:rebounds]
+    end 
+  end 
+  rebounds
+end 
+
+#bonus methods
+
+def most_points_scored 
+  
+end 
+
+def winning_team
+  
+end
+
+def player_with_longest_name
+  
+end 
+
+def long_name_steals_a_ton?
+  
+end 
