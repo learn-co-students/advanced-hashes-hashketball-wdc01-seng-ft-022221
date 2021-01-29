@@ -1,4 +1,5 @@
-# Write your code below game_hash
+require 'pry'
+
 def game_hash
   {
     home: {
@@ -126,4 +127,104 @@ def game_hash
   }
 end
 
-# Write code here
+def num_points_scored(name)
+  game_points = nil
+  game_hash.map do |location, team_stats|
+   team_stats[:players].map do |index|
+     index.map do |stat_name, value|
+       if name == index[:player_name]
+         game_points = index[:points]
+     end
+     end
+    end
+  end
+  game_points
+end
+
+def shoe_size(name)
+  size_answer = nil 
+  game_hash.map do |location, team_stats|
+   team_stats[:players].map do |index|
+     index.map do |stat_name, value| 
+       if name == index[:player_name]
+         size_answer = index[:shoe]
+       end
+   end
+ end 
+ end 
+ size_answer
+end
+
+def team_colors(name)
+  color_answer = []
+  game_hash.map do |location, team_stats|
+    if name == team_stats[:team_name]
+      color_answer = team_stats[:colors]
+  end
+  end
+  color_answer
+end
+
+def team_names
+  teams = []
+  game_hash.map do |location, team_stats|
+    teams.push(team_stats[:team_name])
+  end
+  teams
+end
+
+def player_numbers(name)
+  jersey_numbers = []
+  game_hash.map do |location, team_stats|
+    if name == team_stats[:team_name]
+      team_stats.map do |team_data, value|
+        team_stats[:players].map do |index|
+          jersey_numbers.push(index[:number])
+          jersey_numbers = jersey_numbers.uniq
+      end
+      end
+    end 
+  end
+  jersey_numbers
+end
+
+def player_stats(name)
+  name_stats = {}
+  game_hash.map do |location, team_stats|
+   team_stats[:players].map do |index|
+     index.map do |stat_name, value|
+       if name == index[:player_name]
+         name_stats = index
+       end 
+     end 
+   end 
+ end
+ name_stats
+end
+
+def big_shoe_rebounds
+  shoe_check = 0 
+  rebound_answer = nil
+  game_hash.map do |location, team_stats|
+    team_stats[:players].map do |index|
+      if shoe_check <= index[:shoe]
+        shoe_check = index[:shoe]
+        rebound_answer = index[:rebounds]
+  end
+  end
+  end
+  rebound_answer
+end
+
+def most_points_scored
+  highest_points = 0 
+  game_hash.map do |location, team_stats|
+    team_stats[:players].map do |index|
+      if highest_points <= index[:points]
+        highest_points = index[:points]
+      end
+    end 
+  end
+  highest_points
+end
+
