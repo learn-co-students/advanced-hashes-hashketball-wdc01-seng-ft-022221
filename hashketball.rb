@@ -1,4 +1,6 @@
-# Write your code below game_hash
+
+require "pry"
+
 def game_hash
   {
     home: {
@@ -126,4 +128,73 @@ def game_hash
   }
 end
 
-# Write code here
+
+def players
+  (game_hash[:home][:players]).concat(game_hash[:away][:players])
+  end
+players
+
+def num_points_scored(player_name)
+players.each do |inner_key|
+  if inner_key[:player_name] == player_name
+    return inner_key[:points]
+  end
+end
+end
+num_points_scored("Kemba Walker")
+
+
+def shoe_size(player_name)
+    players.each do |inner_key|
+      if inner_key[:player_name] == player_name
+        return inner_key[:shoe]
+      end
+  end
+end
+shoe_size("Bismack Biyombo")
+
+def team_colors(team_name)
+game_hash.each do |key,value|
+  if team_name == value[:team_name]
+    return value[:colors]
+  end
+end
+end
+team_colors("Charlotte Hornets")
+
+def team_names
+p [game_hash[:home][:team_name], game_hash[:away][:team_name]]
+end
+team_names
+
+def player_numbers(team_name)
+  new_array = []
+  game_hash.each do |key,value|
+    value[:players].each do |inner_key|
+      if value[:team_name] == team_name
+        a = inner_key[:number]
+        new_array << a
+      end
+end
+end
+new_array.sort!
+end
+player_numbers("Brooklyn Nets")
+
+def player_stats(player_name)
+players.each do |inner_key|
+  if inner_key[:player_name] == player_name
+    p inner_key
+  end
+end
+end
+player_stats("Reggie Evans")
+
+def big_shoe_rebounds
+  players.each do |inner_value|
+      if inner_value[:shoe] > 18
+        return inner_value[:rebounds]
+      end
+  end
+end
+big_shoe_rebounds
