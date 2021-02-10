@@ -1,4 +1,3 @@
-# Write your code below game_hash
 def game_hash
   {
     home: {
@@ -126,4 +125,100 @@ def game_hash
   }
 end
 
-# Write code here
+
+def num_points_scored(name)
+  game_points = nil
+  game_hash.map do |location, team_data|
+   team_data[:players].map do |index|
+     index.map do |data_name, value|
+       if name == index[:player_name]
+         game_points = index[:points]
+     end
+     end
+    end
+  end
+  game_points
+end
+
+  def shoe_size(name)
+  size_answer = nil 
+  game_hash.map do |location, team_data|
+   team_data[:players].map do |index|
+     index.map do |data_name, value| 
+       if name == index[:player_name]
+         size_answer = index[:shoe]
+       end
+   end
+ end 
+ end 
+ size_answer
+end
+
+def team_colors(name)
+  color_answer = []
+  game_hash.map do |location, team_data|
+    if name == team_data[:team_name]
+      color_answer = team_data[:colors]
+  end
+  end
+  color_answer
+end
+
+def team_names
+  teams = []
+  game_hash.map do |location, team_data|
+    teams.push(team_data[:team_name])
+  end
+  teams
+end
+
+def player_numbers (team)
+  if game_hash[:home][:team_name] == team 
+    game_hash[:home][:players].map {|n| n[:number]}
+  elsif game_hash[:away][:team_name] == team 
+    game_hash[:away][:players].map {|n| n[:number]}
+  else
+    puts "nil"
+  end 
+end
+
+def player_stats(name)
+  name_data = {}
+  game_hash.map do |location, team_data|
+   team_data[:players].map do |index|
+     index.map do |data_name, value|
+       if name == index[:player_name]
+         name_data = index
+       end 
+     end 
+   end 
+ end
+ name_data
+end
+
+def big_shoe_rebounds
+  shoe_check = 0 
+  rebound_answer = nil
+  game_hash.map do |location, team_data|
+    team_data[:players].map do |index|
+      if shoe_check <= index[:shoe]
+        shoe_check = index[:shoe]
+        rebound_answer = index[:rebounds]
+  end
+  end
+  end
+  rebound_answer
+end
+
+def most_points_scored
+  highest_points = 0 
+  game_hash.map do |location, team_data|
+    team_data[:players].map do |index|
+      if highest_points <= index[:points]
+        highest_points = index[:points]
+      end
+    end 
+  end
+  highest_points
+end
+
