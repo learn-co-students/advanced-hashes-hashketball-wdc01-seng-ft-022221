@@ -1,0 +1,20 @@
+def player_helper
+    game_hash[:home][:players].merge(game_hash[:away][:players])
+  end
+
+def get_team_helper(team)
+    case team
+    when game_hash[:home][:team_name]
+      game_hash[:home]
+    when game_hash[:away][:team_name]
+      game_hash[:away] 
+    end
+end
+  # Works for her but not for me, ?. How is hers a valid hash but mine is an array?
+
+  def players_data
+    home_players = game_hash[:home][:players]
+    away_players = game_hash[:away][:players]
+    total_players = home_players + away_players
+    total_players
+  end

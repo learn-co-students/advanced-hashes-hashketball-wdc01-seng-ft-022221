@@ -1,4 +1,3 @@
-# Write your code below game_hash
 def game_hash
   {
     home: {
@@ -126,4 +125,78 @@ def game_hash
   }
 end
 
-# Write code here
+def players_data
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  total_players = home_players + away_players
+  total_players
+end
+
+def num_points_scored(player_name)
+  game_points = nil
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |index|
+      index.each do |stat, value|
+        if player_name == index[:player_name]
+          game_points = index[:points]
+        end
+      end
+    end
+    end
+  game_points
+end
+
+def shoe_size(name)
+  size_result = nil
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |index|
+      index.each do |stat, value|
+        if name == index[:player_name]
+          size_result = index[:shoe]
+        end
+      end
+      end
+  end
+  size_result
+end
+
+def team_colors(team)
+  color_result = []
+  game_hash.each do |location, team_data|
+      if team == team_data[:team_name]
+        color_result = team_data[:colors]
+      end
+    end
+  color_result
+end
+
+def team_names
+  teams = []
+  game_hash.each do |location, team_data|
+    teams.push(team_data[:team_name])
+  end
+  teams
+end
+
+def team_stats 
+  home_team = game_hash.values_at(:home)
+   away_team = game_hash.values_at(:away)
+   total_team_stats = home_team + away_team
+   total_team_stats
+end 
+
+def player_numbers(team_name)
+  find_team = team_stats.find {|team| team.fetch(:team_name) == team_name}
+  find_team[:players].collect {|player| player[:number]}
+end
+
+def player_stats(test_name)
+  find_player = players_data.find {|player| player.fetch(:player_name) == test_name}
+  find_player
+  end
+
+def big_shoe_rebounds
+  biggest_shoe = players_data.max_by {|player_shoe| player_shoe.fetch(:shoe)}
+  biggest_shoe[:rebounds]
+end
+
